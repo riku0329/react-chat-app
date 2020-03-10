@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import { LIGHT_ASH } from "./utils/constans";
 
 import App from "./App";
+import store from './redux/store'
 
 import * as serviceWorker from "./serviceWorker";
 
@@ -18,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 }
   body {
+    height: 100vh;
     font-family: Avenir, Nunito, sans-serif;
     font-size: 16px;
     font-weight: 500;
@@ -30,11 +33,13 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <div>
-    <BrowserRouter>
-      <GlobalStyle />
-      <App />
-    </BrowserRouter>
-    </div>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </div>,
   document.getElementById("root")
 );
 

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { signInWithGoogle, auth } from "../firebase/firebase.utils";
+
 
 import { OX, LIGHT_ASH } from "../utils/constans";
 
@@ -10,7 +12,7 @@ export const RegisterContainer = styled.div`
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   height: 30rem;
-  width: 25rem;
+  width: 20rem;
   margin: 2rem;
 
   @media screen and (max-width: 1000px) {
@@ -23,13 +25,14 @@ export const RegisterContainer = styled.div`
 
 const RegisterTitle = styled.h2`
   color: ${OX};
+  margin-top: 2rem;
 `;
 
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
 `;
 
 const FormInput = styled.input`
@@ -37,7 +40,7 @@ const FormInput = styled.input`
   border: 2px solid #c3ccdb;
   border-radius: 4px;
   display: block;
-  width: 20rem;
+  width: 17rem;
   padding: 10px;
   font-size: 14px;
   margin-bottom: 10px;
@@ -51,7 +54,7 @@ const SubmitButton = styled.button`
   margin-bottom: 1rem;
   width: auto;
   height: 2rem;
-  border-radius: 2px;
+  border-radius: 4px;
   letter-spacing: 0.5px;
   font-size: 14px;
   font-family: "Open Sans Condensed";
@@ -72,15 +75,46 @@ const SubmitButton = styled.button`
 `;
 
 const RegisterStyled = () => {
-  const handleChange = () => {};
+  const [userCredentials, setUserCredentials] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      alert("passwords don't match");
+      return;
+    }
+    auth.signInWithEmailAndPassword(email, password)
+      .then(createUser => {
+      console.log(createUser)
+      })
+      .catch(err => {
+        console.log(err)
+      }
+
+    )
+  };
+
+  const { username, email, password, confirmPassword } = userCredentials;
+  const handleChange = event => {
+    const { name, value } = event.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
+    console.log(username);
+  };
+
   return (
     <RegisterContainer>
       <RegisterTitle>Register for MaruChat</RegisterTitle>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormContainer>
           <FormInput
             type="text"
             name="username"
+            value={username}
             placeholder="User Name"
             label="User Name"
             onChange={handleChange}
@@ -88,6 +122,7 @@ const RegisterStyled = () => {
           <FormInput
             type="email"
             name="email"
+            value={email}
             placeholder="Email"
             label="Email"
             onChange={handleChange}
@@ -95,6 +130,7 @@ const RegisterStyled = () => {
           <FormInput
             type="password"
             name="password"
+            value={password}
             placeholder="Password"
             label="Password"
             onChange={handleChange}
@@ -102,12 +138,15 @@ const RegisterStyled = () => {
           <FormInput
             type="password"
             name="confirmPassword"
+            value={confirmPassword}
             placeholder="Confirm Password"
             label="Confirm Password"
             onChange={handleChange}
           />
           <SubmitButton>Register</SubmitButton>
-          <SubmitButton>Sign Up With Google</SubmitButton>
+          <SubmitButton onClick={signInWithGoogle}>
+            Sign In With Google
+          </SubmitButton>
         </FormContainer>
       </form>
     </RegisterContainer>
