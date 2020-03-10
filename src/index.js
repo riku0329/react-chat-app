@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 
+import { LIGHT_ASH } from "./utils/constans";
+
 import App from "./App";
 
 import * as serviceWorker from "./serviceWorker";
@@ -19,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: Avenir, Nunito, sans-serif;
     font-size: 16px;
     font-weight: 500;
+    background-color: ${LIGHT_ASH};
     @media screen and (max-width: 1000px) {
       margin: 0;
     }
