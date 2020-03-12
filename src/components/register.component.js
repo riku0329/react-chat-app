@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import md5 from "md5";
 import { signInWithGoogle, auth } from "../firebase/firebase.utils";
 
-
-import { OX, LIGHT_ASH } from "../utils/constans";
+import { FormContainer, FormInput } from "./form-input.component";
+import { checkLength, checkEmail } from "../utils/check-valid";
+import CustomButton from "./custom-button.component";
+import { DARK_GREEN } from "../utils/constans";
 
 export const RegisterContainer = styled.div`
   display: flex;
@@ -24,63 +27,18 @@ export const RegisterContainer = styled.div`
 `;
 
 const RegisterTitle = styled.h2`
-  color: ${OX};
+  color: ${DARK_GREEN};
   margin-top: 2rem;
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: 3rem;
-`;
-
-const FormInput = styled.input`
-  outline: none;
-  border: 2px solid #c3ccdb;
-  border-radius: 4px;
-  display: block;
-  width: 17rem;
-  padding: 10px;
-  font-size: 14px;
-  margin-bottom: 10px;
-  background-color: ${LIGHT_ASH};
-  @media screen and (max-width: 800px) {
-    width: 17rem;
-  }
-`;
-
-const SubmitButton = styled.button`
-  margin-bottom: 1rem;
-  width: auto;
-  height: 2rem;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-  font-size: 14px;
-  font-family: "Open Sans Condensed";
-  font-weight: bolder;
-  min-width: 165px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  &:hover {
-    border: 1px solid black;
-    background-color: #357ae8;
-    border: none;
-  }
 `;
 
 const RegisterStyled = () => {
   const [userCredentials, setUserCredentials] = useState({
-    username: "",
+    displayName: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -88,22 +46,37 @@ const RegisterStyled = () => {
       alert("passwords don't match");
       return;
     }
-    auth.signInWithEmailAndPassword(email, password)
-      .then(createUser => {
-      console.log(createUser)
-      })
-      .catch(err => {
-        console.log(err)
-      }
+    checkLength(displayName, 3, 20);
+    checkLength(password, 6, 20);
+    checkEmail(email);
 
-    )
+    try {
+      const userAuth = auth;
+      userAuth
+        .createUserWithEmailAndPassword(email, password)
+        .then(createdUser => {
+          createdUser.user.updateProfile({
+            displayName: displayName,
+            photoURL: `http://gravatar.com/avatar/${md5(
+              createdUser.user.email
+            )}?d=identicon`
+          });
+        });
+      setUserCredentials({
+        displayName: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      });
+      return userAuth;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const { username, email, password, confirmPassword } = userCredentials;
   const handleChange = event => {
     const { name, value } = event.target;
     setUserCredentials({ ...userCredentials, [name]: value });
-    console.log(username);
   };
 
   return (
@@ -113,10 +86,10 @@ const RegisterStyled = () => {
         <FormContainer>
           <FormInput
             type="text"
-            name="username"
-            value={username}
+            name="displayName"
+            value={displayName}
             placeholder="User Name"
-            label="User Name"
+            label="Display Name"
             onChange={handleChange}
           />
           <FormInput
@@ -143,12 +116,12 @@ const RegisterStyled = () => {
             label="Confirm Password"
             onChange={handleChange}
           />
-          <SubmitButton>Register</SubmitButton>
-          <SubmitButton onClick={signInWithGoogle}>
-            Sign In With Google
-          </SubmitButton>
+          <CustomButton isRegister >Register</CustomButton>
         </FormContainer>
       </form>
+      <CustomButton isGoogleLogin onClick={signInWithGoogle}>
+        Sign In With Google
+      </CustomButton>
     </RegisterContainer>
   );
 };

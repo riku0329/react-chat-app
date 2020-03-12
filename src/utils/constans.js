@@ -10,9 +10,15 @@ export const GREY = "#232433";
 export const LIGHTER_GREY = "#b2bbc8";
 export const DARK_GREY = "#323745";
 export const LIGHT_PURPLE = "#5b53ff";
+export const DARK_PURPLE = "#1D175E";
+export const PURPLE = "#3324AF";
 export const OX = "#e65661";
 export const PALE_BLUE = "#4db0ed";
 export const PALE_RED = "#e3968c";
+export const BLUE = "#8cacea";
+export const DARK_GREEN = "#27ae60";
+export const GREEN = "#33CC66";
+
 
 // z-index
 export const zIndex = {

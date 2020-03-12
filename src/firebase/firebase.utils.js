@@ -1,21 +1,45 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/database";
 import "firebase/auth";
 import "firebase/storage";
 
 const config = {
-  apiKey: "AIzaSyCRI0WR6e-yjZAvMuECDnSVgCb7aooJZUo",
-  authDomain: "react-chat-aa0cc.firebaseapp.com",
-  databaseURL: "https://react-chat-aa0cc.firebaseio.com",
-  projectId: "react-chat-aa0cc",
-  storageBucket: "react-chat-aa0cc.appspot.com",
-  messagingSenderId: "439024085554",
-  appId: "1:439024085554:web:cce3bf16fc595bd47faa2b",
-  measurementId: "G-79M4S58F15"
+  apiKey: "AIzaSyBFIDbnWq83H2PN8QIQk6IooZ58sVkSU2k",
+  authDomain: "react-chat-a5696.firebaseapp.com",
+  databaseURL: "https://react-chat-a5696.firebaseio.com",
+  projectId: "react-chat-a5696",
+  storageBucket: "react-chat-a5696.appspot.com",
+  messagingSenderId: "307986255837",
+  appId: "1:307986255837:web:05cddac90e86228c43f034",
+  measurementId: "G-47MBB32JWG"
 };
 
 firebase.initializeApp(config);
+
+export const createUserProfile = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email, photoURL } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+  return userRef;
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

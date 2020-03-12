@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import { auth } from "../firebase/firebase.utils";
 import { Link } from "react-router-dom";
 
-import { OX, LIGHT_ASH } from "../utils/constans";
 
 const HeaderContainer = styled.div``;
 
-const Logout = styled.div``;
+const Logout = styled.div`
+  cursor: pointer;
+`;
 
 const Header = ({ currentUser }) => {
   return (

@@ -32,6 +32,7 @@ const Register = () => {
           Already a user?<Link to="/login">Login</Link>
         </span>
       </Message>
+      <Link to="/">aaa</Link>
     </RegisterPageStyled>
   );
 };
