@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import md5 from "md5";
-import { signInWithGoogle, auth } from "../firebase/firebase.utils";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
-import { FormContainer, FormInput } from "./form-input.component";
-import { checkLength, checkEmail } from "../utils/check-valid";
-import CustomButton from "./custom-button.component";
-import { DARK_GREEN } from "../utils/constans";
+import { FormContainer, FormInput } from "../form-input/form-input.component";
+import { checkLength, checkEmail } from "../../utils/check-valid";
+import CustomButton from "../custom-button/custom-button.component";
+import { DARK_GREEN } from "../../utils/constans";
 
 export const RegisterContainer = styled.div`
   display: flex;
@@ -44,6 +44,10 @@ const RegisterStyled = () => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("passwords don't match");
+      setUserCredentials({
+        password: "",
+        confirmPassword: "",
+      })
       return;
     }
     checkLength(displayName, 3, 20);

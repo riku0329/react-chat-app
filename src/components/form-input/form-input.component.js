@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LIGHT_ASH, LIGHT_BLACK } from "../utils/constans";
+import { LIGHT_ASH, LIGHT_BLACK } from "../../utils/constans";
 
 export const FormContainer = styled.div`
   display: flex;

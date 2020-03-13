@@ -1,7 +1,9 @@
 import userActionTypes from "./user.types";
 
 const INITIAL_STATE = {
-  currentUser: null
+  currentUser: null,
+  isLoading: true,
+  hidden: true,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -9,8 +11,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: action.payload,
+        isLoading: false
       };
+    case userActionTypes.TOGGLE_USER_OPTION:
+      return {
+        ...state,
+        hidden: !state.hidden
+      }
     default:
       return state;
   }

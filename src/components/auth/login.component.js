@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { signInWithGoogle, auth } from "../firebase/firebase.utils";
+import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
 
-import { FormContainer, FormInput } from "./form-input.component";
-import CustomButton from "./custom-button.component";
-import { LIGHT_PURPLE } from "../utils/constans";
+import { FormContainer, FormInput } from "../form-input/form-input.component";
+import CustomButton from "../custom-button/custom-button.component";
+import { LIGHT_PURPLE } from "../../utils/constans";
 
 export const LoginContainer = styled.div`
   display: flex;

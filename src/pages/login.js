@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import LoginStyled from "../components/login.component";
+import LoginStyled from "../components/auth/login.component";
 import { Link } from "react-router-dom";
 
 const LoginPageStyled = styled.div`

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { LIGHT_PURPLE, PURPLE, DARK_GREEN, GREEN } from "../utils/constans";
+import { LIGHT_PURPLE, PURPLE, DARK_GREEN, GREEN } from "../../utils/constans";
 
 const loginButton = css`
   background-color: ${LIGHT_PURPLE};

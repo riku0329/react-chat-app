@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import RegisterStyled from "../components/register.component";
+import RegisterStyled from "../components/auth/register.component";
 import { Link } from "react-router-dom";
 
 const RegisterPageStyled = styled.div`

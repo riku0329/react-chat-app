@@ -2,8 +2,12 @@ export const HEADER_ALLOWANCE = 9.25; // vh
 export const SIDEBAR_LEFT_PADDING = 2.5; // vw
 export const COLUMN_WIDTH = 31.88; // vw
 
-export const BLACK = "#0f0f14";
+export const DARK_BLACK = "#0f0f14";
 export const LIGHT_BLACK = "#191921";
+export const BLACK = "#1e1e2e";
+export const DARK = "#272121";
+export const LIGHT_DARK = "#313131";
+export const OFF_WHITE = "#fff";
 export const ASH = "#c3ccdb";
 export const LIGHT_ASH = "#efeff4";
 export const GREY = "#232433";
