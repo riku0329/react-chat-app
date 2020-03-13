@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { toggelHidden } from "../../redux/user/user.actions";
-import { LIGHTER_GREY, LIGHT_ASH } from "../../utils/constans";
+import { ASH, OFF_WHITE } from "../../utils/constans";
 
 const OptionIconContainer = styled.div`
-  padding: 11px;
+  padding: 0 10px 0 20px;
 `;
 
 const IconStyle = styled.span`
-  stroke: ${LIGHT_ASH};
-    &:hover {
-      stroke: ${LIGHTER_GREY};
-    }
+  stroke: ${ASH};
+  &:hover {
+    stroke: ${OFF_WHITE};
+  }
 `;
 
 const OptionIcon = ({ toggleHidden }) => {

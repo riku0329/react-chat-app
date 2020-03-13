@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { LIGHT_PURPLE, PURPLE, DARK_GREEN, GREEN } from "../../utils/constans";
+import { DARK_BLACK } from "../../utils/constans";
+
+const ColorPanleContainer = styled.div`
+  background-color: ${DARK_BLACK};
+  grid-row: 1/ -1;
+`;
 
 const ColorPanel = () => {
-  return <div>Color</div>;
+  return <ColorPanleContainer>Color</ColorPanleContainer>;
 };
 
 export default ColorPanel;
