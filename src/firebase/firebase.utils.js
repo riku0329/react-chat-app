@@ -41,6 +41,27 @@ export const createUserProfile = async (userAuth, additionalData) => {
   return userRef;
 };
 
+export const addChannel = async (channel, currentUser) => {
+  const channelRef = firestore.collection("channel").doc();
+
+  const { displayName, photoURL } = currentUser;
+  const createdAt = new Date();
+
+  try {
+    await channelRef.set({
+      channel,
+      createdAt,
+      createdBy: {
+        displayName,
+        photoURL
+      }
+    });
+  } catch (error) {
+    console.log("error creating user", error.message);
+  }
+  return channelRef;
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 

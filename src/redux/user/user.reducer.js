@@ -3,7 +3,7 @@ import userActionTypes from "./user.types";
 const INITIAL_STATE = {
   currentUser: null,
   isLoading: true,
-  hidden: true,
+  hidden: true
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -18,7 +18,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         hidden: !state.hidden
-      }
+      };
     default:
       return state;
   }

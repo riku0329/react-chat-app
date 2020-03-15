@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import md5 from "md5";
-import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+import {
+  signInWithGoogle,
+  auth,
+  createUserProfile
+} from "../../firebase/firebase.utils";
 
 import { FormContainer, FormInput } from "../form-input/form-input.component";
 import { checkLength, checkEmail } from "../../utils/check-valid";
@@ -40,14 +44,19 @@ const RegisterStyled = () => {
   });
   const { displayName, email, password, confirmPassword } = userCredentials;
 
-  const handleSubmit = event => {
+  const photo = {
+    photoURL: `http://gravatar.com/avatar/${md5(email)}?d=identicon`
+  };
+
+  const { photoURL } = photo;
+  const handleSubmit = async event => {
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("passwords don't match");
       setUserCredentials({
         password: "",
-        confirmPassword: "",
-      })
+        confirmPassword: ""
+      });
       return;
     }
     checkLength(displayName, 3, 20);
@@ -55,24 +64,19 @@ const RegisterStyled = () => {
     checkEmail(email);
 
     try {
-      const userAuth = auth;
-      userAuth
-        .createUserWithEmailAndPassword(email, password)
-        .then(createdUser => {
-          createdUser.user.updateProfile({
-            displayName: displayName,
-            photoURL: `http://gravatar.com/avatar/${md5(
-              createdUser.user.email
-            )}?d=identicon`
-          });
-        });
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfile(user, { displayName, photoURL });
+
       setUserCredentials({
         displayName: "",
         email: "",
         password: "",
         confirmPassword: ""
       });
-      return userAuth;
     } catch (error) {
       console.error(error);
     }
@@ -120,7 +124,9 @@ const RegisterStyled = () => {
             label="Confirm Password"
             onChange={handleChange}
           />
-          <CustomButton isRegister >Register</CustomButton>
+          <CustomButton isRegister onClick={handleSubmit}>
+            Register
+          </CustomButton>
         </FormContainer>
       </form>
       <CustomButton isGoogleLogin onClick={signInWithGoogle}>
@@ -131,3 +137,11 @@ const RegisterStyled = () => {
 };
 
 export default RegisterStyled;
+
+// userAuth.createUserWithEmailAndPassword(email, password).then(createdUser => {
+//   console.log(createdUser);
+//   createdUser.user.updateProfile({
+//     displayName: displayName,
+//     photoURL: `http://gravatar.com/avatar/${md5(email)}?d=identicon`
+//   });
+// });

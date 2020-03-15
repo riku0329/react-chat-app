@@ -19,7 +19,7 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
-          });
+          })
         });
       }
       setCurrentUser(userAuth);

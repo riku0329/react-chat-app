@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { BLACK } from "../../utils/constans";
 
 const UserPanelContainer = styled.div`
   display: flex;

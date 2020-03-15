@@ -74,7 +74,7 @@ const LoginStyled = () => {
             label="Password"
             onChange={handleChange}
           />
-          <CustomButton isLogin >Login</CustomButton>
+          <CustomButton isCustom onClick={handleSubmit} >Login</CustomButton>
         </FormContainer>
       </form>
       <CustomButton isGoogleLogin onClick={signInWithGoogle}>Login With Google</CustomButton>

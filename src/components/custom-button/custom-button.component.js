@@ -1,12 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import { LIGHT_PURPLE, PURPLE, DARK_GREEN, GREEN } from "../../utils/constans";
+import { LIGHT_PURPLE, PURPLE, DARK_GREEN, GREEN, ASH, LIGHTER_GREY } from "../../utils/constans";
 
-const loginButton = css`
+const customButton = css`
   background-color: ${LIGHT_PURPLE};
   &:hover {
     background-color: ${PURPLE};
+  }
+`;
+
+const CloseButton = css`
+  background-color: ${ASH};
+  &:hover {
+    background-color: ${LIGHTER_GREY};
   }
 `;
 
@@ -27,10 +34,12 @@ const googleLoginButton = css`
 const getButtonStyles = props => {
   if (props.isGoogleLogin) {
     return googleLoginButton
-  } else if (props.isLogin) {
-    return loginButton
+  } else if (props.isCustom) {
+    return customButton
   } else if (props.isRegister) {
     return registerButton
+  } else if (props.isClose) {
+    return CloseButton
   }
 }
 
@@ -60,4 +69,4 @@ const CustomButton = ({ children, ...props }) => (
   <CustomButtonContainer {...props}>{children}</CustomButtonContainer>
 );
 
-export default CustomButton;
+  export default CustomButton;

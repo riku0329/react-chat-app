@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import AddChannelModal from "../modal/add-channels.modal.component";
-import { BLACK, ASH } from "../../utils/constans";
+import { ASH } from "../../utils/constans";
 
 const ChannelsPanelContainer = styled.div`
   display: flex;

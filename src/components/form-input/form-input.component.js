@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LIGHT_ASH, LIGHT_BLACK } from "../../utils/constans";
+import { LIGHT_ASH, OFF_WHITE } from "../../utils/constans";
 
 export const FormContainer = styled.div`
   display: flex;
@@ -17,10 +17,11 @@ export const FormInput = styled.input`
   padding: 10px;
   font-size: 14px;
   margin-bottom: 10px;
-  background-color: ${LIGHT_ASH};
+  background-color: ${OFF_WHITE};
 
-  &:hover {
-    border: 2px solid ${LIGHT_BLACK};
+  &:hover,
+  &:active {
+    background-color: ${LIGHT_ASH}
   }
 
   @media screen and (max-width: 800px) {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import { LIGHT_DARK, LIGHT_BLACK } from "../../utils/constans";
+import { LIGHT_DARK } from "../../utils/constans";
 
 import AboutUser from "../user-option/about-user.component";
 import OptionIcon from "../user-option/option-icon.component";
