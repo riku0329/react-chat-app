@@ -4,7 +4,7 @@ export const COLUMN_WIDTH = 31.88; // vw
 
 export const DARK_BLACK = "#0f0f14";
 export const LIGHT_BLACK = "#191921";
-export const BLACK = "#252525";
+export const BLACK = "#1A242B";
 export const DARK = "#272121";
 export const LIGHT_DARK = "#313131";
 export const OFF_WHITE = "#fff";

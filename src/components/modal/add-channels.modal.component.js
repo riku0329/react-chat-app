@@ -7,8 +7,8 @@ import { addChannel } from "../../firebase/firebase.utils";
 
 import { checkLength } from "../../utils/check-valid";
 import { FormContainer, FormInput } from "../form-input/form-input.component";
-import { ChalleIcon } from "../side-panel/channels-panel.component";
-import { BLUE, DARK_BLACK } from "../../utils/constans";
+import { ChalleIcon } from "../side-panel/channels.component";
+import { BLUE, LIGHT_DARK, OFF_WHITE } from "../../utils/constans";
 import CustomButton from "../custom-button/custom-button.component";
 
 const customStyles = {
@@ -21,7 +21,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: `${DARK_BLACK}`
+    backgroundColor: `${LIGHT_DARK}`
   }
 };
 
@@ -34,6 +34,12 @@ const ChannelForm = styled.div`
 
 const ButtonContainer = styled.div`
   padding-top: 3rem;
+`;
+
+const Span = styled.div`
+  :hover {
+    color: ${OFF_WHITE};
+  }
 `;
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
@@ -67,7 +73,7 @@ const AddChannelModal = ({ currentUser }) => {
     try {
       await addChannel(channelName, currentUser);
       setCreateChannel({ channelName: "" });
-      closeModal()
+      closeModal();
     } catch (error) {
       console.log("error creating user", error.message);
     }
@@ -80,12 +86,12 @@ const AddChannelModal = ({ currentUser }) => {
 
   return (
     <div>
-      <span onClick={openModal}>
+      <Span onClick={openModal}>
         <p>
-          Add Channels(0)
+          Add Channels
           <ChalleIcon />
         </p>
-      </span>
+      </Span>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
@@ -101,16 +107,12 @@ const AddChannelModal = ({ currentUser }) => {
                 type="text"
                 name="channelName"
                 value={channelName}
-                placeholder="Name"
+                placeholder="Channel Name"
                 label="Create Channel"
                 onChange={handleChange}
               />
               <ButtonContainer>
-                <CustomButton
-                  isCustom
-                  onClick={handleSubmit}
-
-                >
+                <CustomButton isCustom onClick={handleSubmit}>
                   Create Channel
                 </CustomButton>
                 <CustomButton isClose onClick={closeModal}>

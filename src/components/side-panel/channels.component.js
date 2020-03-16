@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
+import DisplayChannel from "./display-channel.component";
 import AddChannelModal from "../modal/add-channels.modal.component";
 import { ASH } from "../../utils/constans";
 
-const ChannelsPanelContainer = styled.div`
+const ChannelsContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
+  flex-direction: column;
+  margin: 1rem;
 `;
 
 const ChalleIconStyle = styled.span`
@@ -34,12 +35,21 @@ export const ChalleIcon = () => {
   );
 };
 
-const ChannelsPanle = () => {
+const Channels = ({ channels }) => {
   return (
-    <ChannelsPanelContainer>
-        <AddChannelModal />
-    </ChannelsPanelContainer>
+    <ChannelsContainer>
+      <AddChannelModal />
+      {
+        channels.map(channel => (
+          <DisplayChannel key={channel.id} channelName={channel.channelName} channelData={channel} />
+        ))
+      }
+    </ChannelsContainer>
   );
 };
 
-export default ChannelsPanle;
+const mapStateToProps = state => ({
+  channels: state.channel.channels
+});
+
+export default connect(mapStateToProps, null)(Channels);

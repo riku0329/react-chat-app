@@ -8,6 +8,9 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import Home from "./pages/home";
 import Register from "./pages/register";
 import Login from "./pages/login";
+import WithSpinner from "./components/spinner/with-spinner.component";
+
+const HomeWithSpinner = WithSpinner(Home)
 
 const App = ({ setCurrentUser, currentUser, isLoading }) => {
   console.log(isLoading);
@@ -19,7 +22,7 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
-          })
+          });
         });
       }
       setCurrentUser(userAuth);
@@ -31,7 +34,7 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" render={()=> (<HomeWithSpinner isLoading={isLoading} />)} />
         <Route
           exact
           path="/register"

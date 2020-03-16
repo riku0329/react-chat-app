@@ -137,11 +137,3 @@ const RegisterStyled = () => {
 };
 
 export default RegisterStyled;
-
-// userAuth.createUserWithEmailAndPassword(email, password).then(createdUser => {
-//   console.log(createdUser);
-//   createdUser.user.updateProfile({
-//     displayName: displayName,
-//     photoURL: `http://gravatar.com/avatar/${md5(email)}?d=identicon`
-//   });
-// });

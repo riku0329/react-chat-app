@@ -41,7 +41,7 @@ export const createUserProfile = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const addChannel = async (channel, currentUser) => {
+export const addChannel = async (channelName, currentUser) => {
   const channelRef = firestore.collection("channel").doc();
 
   const { displayName, photoURL } = currentUser;
@@ -49,7 +49,7 @@ export const addChannel = async (channel, currentUser) => {
 
   try {
     await channelRef.set({
-      channel,
+      channelName,
       createdAt,
       createdBy: {
         displayName,
@@ -61,6 +61,39 @@ export const addChannel = async (channel, currentUser) => {
   }
   return channelRef;
 };
+
+export const convertChannelsSnapShotToMap = channels => {
+  const transformedChannel = channels.docs.map(doc => {
+    const { channelName, createdAt, createdBy } = doc.data()
+    return {
+      id: doc.id,
+      channelName,
+      createdAt,
+      createdBy
+    }
+  });
+  return transformedChannel
+};
+
+export const createSendMessages = async (content, currentUser) => {
+  const messageRef = firestore.collection("message").doc()
+
+  const { displayName, photoURL, id } = currentUser;
+  const timeStamp = new Date()
+  try {
+    await messageRef.set({
+      content,
+      timeStamp,
+      sendBy: {
+        id,
+        displayName,
+        photoURL
+      }
+    });
+  } catch (error) {
+    console.log("error creating user", error.message);
+  } return messageRef
+}
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

@@ -1,5 +1,6 @@
 const channelActionTypes = {
-  ADD_CHANNEL: "ADD_CHANNEL"
+  GET_CHANNELS: "GET_CHANNELS",
+  SET_CURRENT_CHANNEL: "SET_CURRENT_CHANNEL"
 };
 
 export default channelActionTypes;

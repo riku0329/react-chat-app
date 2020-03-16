@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { LIGHT_DARK } from "../../utils/constans";
+import { LIGHT_DARK, LIGHT_BLACK, DARK_BLACK } from "../../utils/constans";
 
 
 const MetaPanelContainer = styled.div`
-  background-color: ${LIGHT_DARK};
+  background-color: ${DARK_BLACK};
 `;
 
 const MetaPanel = () => {
