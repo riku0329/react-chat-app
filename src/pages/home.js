@@ -11,7 +11,7 @@ import { ASH, BLACK } from "../utils/constans";
 const HomeContainer = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 70px 220px 800px 1fr;
+  grid-template-columns: 70px 220px 900px 1fr;
   grid-template-rows: 50px 1fr ;
   color: ${ASH};
   background-color: ${BLACK};

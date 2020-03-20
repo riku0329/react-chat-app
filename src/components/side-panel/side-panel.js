@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import { LIGHT_BLACK } from "../../utils/constans";
+import { BLACK } from "../../utils/constans";
 
 import {
   firestore,
@@ -12,36 +12,46 @@ import { getChannels } from "../../redux/channel/channel.actions";
 
 import Channels from "./channels.component";
 import SideHeader from "./side-header.component";
+import DirectMessage from "./directmessage.component";
 
 const MenuContainer = styled.div`
-  background-color: ${LIGHT_BLACK};
+  background-color: ${BLACK};
+  opacity: 1;
   grid-row: span 2;
   display: grid;
-  grid-template-rows: 100px 1fr 100px;
+  grid-template-rows: 100px 1fr 1fr 100px;
+  margin: 1rem;
 `;
 
 const SidePanel = ({ getChannels }) => {
   useEffect(() => {
     const channelRef = firestore.collection("channel");
-    const unsubscribeFromSnapShot = channelRef.onSnapshot(async snapShot => {
-      const channelsMap = convertChannelsSnapShotToMap(snapShot);
-      getChannels(channelsMap);
-    });
+    const unsubscribeFromSnapShot = channelRef
+      .orderBy("createdAt", "asc")
+      .limit(20)
+      .onSnapshot(async snapShot => {
+        const channelsMap = convertChannelsSnapShotToMap(snapShot);
+        getChannels(channelsMap);
+      });
     return () => {
       unsubscribeFromSnapShot();
     };
-  }, []);
+  }, [getChannels]);
   return (
     <MenuContainer>
       <SideHeader />
       <Channels />
+      <DirectMessage />
     </MenuContainer>
   );
 };
-
 
 const mapDispatchToProps = dispatch => ({
   getChannels: channelsMap => dispatch(getChannels(channelsMap))
 });
 
-export default connect(null, mapDispatchToProps)(SidePanel);
+const mapStateToProps = state => ({
+  channels: state.channel.channels
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidePanel);

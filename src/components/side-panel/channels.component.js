@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
+import {
+  setCurrentChannel,
+  setFirstChannel
+} from "../../redux/channel/channel.actions";
 import DisplayChannel from "./display-channel.component";
 import AddChannelModal from "../modal/add-channels.modal.component";
 import { ASH } from "../../utils/constans";
@@ -9,7 +13,7 @@ import { ASH } from "../../utils/constans";
 const ChannelsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  
 `;
 
 const ChalleIconStyle = styled.span`
@@ -35,21 +39,46 @@ export const ChalleIcon = () => {
   );
 };
 
-const Channels = ({ channels }) => {
+const Channels = ({
+  channels,
+  firstLoad,
+  setFirstChannel,
+  setCurrentChannel
+}) => {
+  useEffect(() => {
+    if (channels) {
+      const firstChannel = channels[0];
+      if (firstLoad && channels.length > 0) {
+        setCurrentChannel(firstChannel);
+        setFirstChannel();
+      } else {
+        return;
+      }
+    }
+    return;
+  }, [firstLoad, channels, setFirstChannel, setCurrentChannel]);
   return (
     <ChannelsContainer>
       <AddChannelModal />
-      {
-        channels.map(channel => (
-          <DisplayChannel key={channel.id} channelName={channel.channelName} channelData={channel} />
-        ))
-      }
+      {channels.map(channel => (
+        <DisplayChannel
+          key={channel.id}
+          channelName={channel.channelName}
+          channelData={channel}
+        />
+      ))}
     </ChannelsContainer>
   );
 };
 
-const mapStateToProps = state => ({
-  channels: state.channel.channels
+const mapDispatchToProps = dispatch => ({
+  setFirstChannel: () => dispatch(setFirstChannel()),
+  setCurrentChannel: channel => dispatch(setCurrentChannel(channel))
 });
 
-export default connect(mapStateToProps, null)(Channels);
+const mapStateToProps = state => ({
+  channels: state.channel.channels,
+  firstLoad: state.channel.firstLoad
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Channels);

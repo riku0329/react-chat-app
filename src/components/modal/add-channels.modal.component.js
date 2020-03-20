@@ -45,7 +45,7 @@ const Span = styled.div`
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement("#root");
 
-const AddChannelModal = ({ currentUser }) => {
+const AddChannelModal = ({ currentUser, channels }) => {
   var subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [createChannel, setCreateChannel] = useState({
@@ -88,7 +88,7 @@ const AddChannelModal = ({ currentUser }) => {
     <div>
       <Span onClick={openModal}>
         <p>
-          Add Channels
+          Add Channels({channels.length})
           <ChalleIcon />
         </p>
       </Span>
@@ -128,7 +128,8 @@ const AddChannelModal = ({ currentUser }) => {
 };
 
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  channels: state.channel.channels
 });
 
 export default connect(mapStateToProps, null)(AddChannelModal);

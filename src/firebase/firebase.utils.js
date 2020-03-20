@@ -57,43 +57,64 @@ export const addChannel = async (channelName, currentUser) => {
       }
     });
   } catch (error) {
-    console.log("error creating user", error.message);
+    console.log("error creating channel", error.message);
   }
   return channelRef;
 };
 
 export const convertChannelsSnapShotToMap = channels => {
   const transformedChannel = channels.docs.map(doc => {
-    const { channelName, createdAt, createdBy } = doc.data()
+    const { channelName, createdAt, createdBy } = doc.data();
     return {
       id: doc.id,
       channelName,
       createdAt,
       createdBy
-    }
+    };
   });
-  return transformedChannel
+  return transformedChannel;
 };
 
-export const createSendMessages = async (content, currentUser) => {
-  const messageRef = firestore.collection("message").doc()
+export const sendMessage = async (content, currentUser, currentChannel) => {
+  if (content.length <= 0) return;
+  const messageRef = firestore
+    .collection("channel")
+    .doc(currentChannel.id)
+    .collection("message")
+    .doc();
 
   const { displayName, photoURL, id } = currentUser;
-  const timeStamp = new Date()
+  const timestamp = new Date().getTime();
   try {
     await messageRef.set({
       content,
-      timeStamp,
-      sendBy: {
-        id,
-        displayName,
-        photoURL
-      }
+      timestamp,
+      id,
+      displayName,
+      photoURL
     });
   } catch (error) {
-    console.log("error creating user", error.message);
-  } return messageRef
-}
+    console.log("error creating messages", error.message);
+  }
+  return messageRef;
+};
+
+export const messageListener = messages => {
+  if (!messages) return;
+  const addListener = messages.docs.map(doc => {
+    const { content, id, photoURL, displayName, timestamp } = doc.data();
+    return {
+      id: doc.id,
+      content,
+      userId: id,
+      photoURL,
+      displayName,
+      timestamp
+    };
+  });
+  return addListener;
+};
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

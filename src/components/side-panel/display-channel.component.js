@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { connect } from "react-redux";
+
 import { setCurrentChannel } from "../../redux/channel/channel.actions";
 
-import { OFF_WHITE, DARK_GREY, ASH } from "../../utils/constans";
+import { OFF_WHITE, DARK_GREY } from "../../utils/constans";
 
 const DiplayChannelContainer = styled.div`
   opacity: 0.7;

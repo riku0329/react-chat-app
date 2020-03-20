@@ -13,7 +13,6 @@ import WithSpinner from "./components/spinner/with-spinner.component";
 const HomeWithSpinner = WithSpinner(Home)
 
 const App = ({ setCurrentUser, currentUser, isLoading }) => {
-  console.log(isLoading);
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -25,16 +24,19 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
           });
         });
       }
-      setCurrentUser(userAuth);
       return () => {
         unsubscribeFromAuth();
       };
     });
-  }, []);
+  }, [setCurrentUser]);
   return (
     <div>
       <Switch>
-        <Route exact path="/" render={()=> (<HomeWithSpinner isLoading={isLoading} />)} />
+        <Route
+          exact
+          path="/"
+          render={() => <HomeWithSpinner isLoading={isLoading} />}
+        />
         <Route
           exact
           path="/register"
@@ -60,3 +62,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+// <Route
+//   exact
+//   path="/"
+//   render={() => <HomeWithSpinner isLoading={isLoading} />}
+// />;
