@@ -17,8 +17,8 @@ const MessageContainer = styled.div`
 
 const MessageBox = styled.div`
   background-color: ${BLACK};
-  height: 38rem;
-  border-radius: 5px 5px 0 0;
+  height: 32rem;
+  border-radius: 10px 10px 0 0;
   overflow-y: scroll;
 `;
 

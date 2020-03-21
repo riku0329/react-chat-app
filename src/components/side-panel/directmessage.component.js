@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { ASH } from "../../utils/constans";
 
-const DirectMessageContainer = styled.div``;
+import { ASH, GREY, LIGHTER_GREY } from "../../utils/constans";
+
+const DirectMessageContainer = styled.div`
+`;
 
 const IconStyle = styled.span`
   fill: ${ASH};
@@ -33,6 +35,6 @@ const DirectMessage = ({ currentUser }) => {
 
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser
-})
+});
 
 export default connect(mapStateToProps)(DirectMessage);

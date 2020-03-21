@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { signInWithGoogle, auth } from "../../firebase/firebase.utils";
+import {
+  signInWithGoogle,
+  auth,
+  authSession
+} from "../../firebase/firebase.utils";
 
 import { FormContainer, FormInput } from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { LIGHT_PURPLE } from "../../utils/constans";
+import { LIGHT_PURPLE, BLACK } from "../../utils/constans";
 
 export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: ${BLACK};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   height: 30rem;
   width: 20rem;
@@ -38,10 +42,10 @@ const LoginStyled = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-
+      await authSession.then(() => {
+        return auth.signInWithEmailAndPassword(email, password);
+      });
       setUserCredentials({ email: "", password: "" });
     } catch (error) {
       console.error(error);
@@ -53,6 +57,16 @@ const LoginStyled = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
+  const handleTestUser = async event => {
+    event.preventDefault();
+    try {
+      await authSession.then(() => {
+        return auth.signInWithEmailAndPassword("test@test.com", "password");
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <LoginContainer>
       <LoginTitle>Login for MaruChat</LoginTitle>
@@ -73,11 +87,20 @@ const LoginStyled = () => {
             placeholder="Password"
             label="Password"
             onChange={handleChange}
+            autoComplete="off"
           />
-          <CustomButton isCustom onClick={handleSubmit} >Login</CustomButton>
+          <CustomButton isCustom onClick={handleSubmit}>
+            Login
+          </CustomButton>
         </FormContainer>
       </form>
-      <CustomButton isGoogleLogin onClick={signInWithGoogle}>Login With Google</CustomButton>
+      <CustomButton isGoogleLogin onClick={signInWithGoogle}>
+        Login With Google
+      </CustomButton>
+      <span>テストユーザーで自動ログインする。</span>
+      <CustomButton isCustom onClick={handleTestUser}>
+        クリックでログイン
+      </CustomButton>
     </LoginContainer>
   );
 };

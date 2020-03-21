@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { getJoinUsers } from "../../redux/message/message.actions";
 import { PRIME_GREEN } from "../../utils/constans";
+import Usage from "../usage/star.component";
 
 const ChannelNameContainer = styled.div`
   flex: 1;
@@ -37,7 +38,8 @@ const ChannelName = ({ currentChannel, messages, getJoinUsers, joinUsers }) => {
 
   return (
     <ChannelNameContainer>
-      <div># {channelName}</div>
+      <div style={{paddingRight: "1rem"}}># {channelName}</div>
+      <Usage />
       <JoinUsersStyles>{joinUsers}users</JoinUsersStyles>
     </ChannelNameContainer>
   );

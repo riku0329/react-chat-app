@@ -14,7 +14,7 @@ import {
 } from "../../redux/message/message.actions";
 
 const HeaderContainer = styled.div`
-  grid-column: 3 / 5;
+  grid-column: 2 / 3;
   background-color: ${LIGHT_BLACK};
   box-shadow: 1px 3px rgba(0, 0, 0, 0.4);
 `;
@@ -53,7 +53,6 @@ const Header = ({
   messages,
   setSearchResults,
   setSearchTherm,
-  searchTherm
 }) => {
   const [search, setSearchState] = useState({
     searchInput: ""
@@ -106,7 +105,7 @@ const Header = ({
         <form onClick={handleSearchSubmit}>
           <SearchForm
             type="text"
-            placeholder="Search Message or User Name"
+            placeholder="Search Messages"
             onChange={handleSearchChange}
             value={searchInput}
             name="searchInput"
@@ -131,7 +130,6 @@ const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
   currentChannel: state.channel.currentChannel,
   messages: state.message.messages,
-  searchTherm: state.message.searchTherm
 });
 
 const mapDispatchToProps = dispatch => ({

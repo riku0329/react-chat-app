@@ -13,7 +13,8 @@ import { ASH } from "../../utils/constans";
 const ChannelsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  
+  overflow-y: scroll;
+  padding: 1rem;
 `;
 
 const ChalleIconStyle = styled.span`

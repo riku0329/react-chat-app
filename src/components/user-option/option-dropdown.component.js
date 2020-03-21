@@ -15,7 +15,7 @@ const OptionDropdownContainer = styled.div`
   text-align: center;
   padding-top: 2px;
   background-color: ${DARK_BLACK};
-  top: 55px;
+  top: 6rem;
   right: 25px;
   z-index: 5;
   border-radius: 4px;
@@ -44,8 +44,7 @@ const ListItem = styled.li`
   }
 `;
 
-const SignOut = styled.p`
-`;
+const SignOut = styled.p``;
 
 export const OptionLink = styled(Link)`
   padding: 10px 15px;
@@ -60,18 +59,13 @@ const OptionDropdown = ({ currentUser }) => {
       <DropdownList>
         <ListItem>Change User Icon</ListItem>
         <ListItem>
-          {currentUser ? (
-            <SignOut
-              onClick={() => {
-                auth.signOut();
-                console.log(currentUser);
-              }}
-            >
-              Sign Out
-            </SignOut>
-          ) : (
-            <OptionLink to="/login">Sign In</OptionLink>
-          )}
+          <SignOut
+            onClick={() => {
+              auth.signOut();
+            }}
+          >
+            Sign Out
+          </SignOut>
         </ListItem>
       </DropdownList>
     </OptionDropdownContainer>

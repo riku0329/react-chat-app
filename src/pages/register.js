@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import RegisterStyled from "../components/auth/register.component";
 import { Link } from "react-router-dom";
+import { BLACK } from "../utils/constans";
 
 const RegisterPageStyled = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const RegisterPageStyled = styled.div`
 `;
 
 const Message = styled.div`
-  background-color: white;
+  background-color: ${BLACK};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   height: 6rem;
   width: 20rem;

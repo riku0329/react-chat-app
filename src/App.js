@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
+import useReactRouter from "use-react-router";
 
 import { auth, createUserProfile } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
@@ -10,9 +11,10 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import WithSpinner from "./components/spinner/with-spinner.component";
 
-const HomeWithSpinner = WithSpinner(Home)
+const HomeWithSpinner = WithSpinner(Home);
 
 const App = ({ setCurrentUser, currentUser, isLoading }) => {
+  const { history } = useReactRouter();
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -23,6 +25,9 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
             ...snapShot.data()
           });
         });
+        history.push("/");
+      } else {
+        history.push("/login");
       }
       return () => {
         unsubscribeFromAuth();
@@ -37,16 +42,8 @@ const App = ({ setCurrentUser, currentUser, isLoading }) => {
           path="/"
           render={() => <HomeWithSpinner isLoading={isLoading} />}
         />
-        <Route
-          exact
-          path="/register"
-          render={() => (currentUser ? <Redirect to="/" /> : <Register />)}
-        />
-        <Route
-          exact
-          path="/login"
-          render={() => (currentUser ? <Redirect to="/" /> : <Login />)}
-        />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
       </Switch>
     </div>
   );
@@ -62,10 +59,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-
-// <Route
-//   exact
-//   path="/"
-//   render={() => <HomeWithSpinner isLoading={isLoading} />}
-// />;

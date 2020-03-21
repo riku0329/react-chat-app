@@ -4,7 +4,8 @@ import { createGlobalStyle } from "styled-components";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import { LIGHT_ASH } from "./utils/constans";
+import {PALE_RED, ASH
+} from "./utils/constans";
 
 import App from "./App";
 import store from './redux/store'
@@ -20,11 +21,13 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
 }
   body {
-    height: 100vh;
+    padding: 3rem 10rem;
+    color: ${ASH};
+    height: 90vh;
     font-family: Avenir, Nunito, sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 500;
-    background-color: ${LIGHT_ASH};
+    background-color: ${PALE_RED};
     @media screen and (max-width: 1000px) {
       margin: 0;
     }

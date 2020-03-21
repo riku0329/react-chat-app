@@ -2,6 +2,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
+import "firebase/database";
+import "firebase/functions";
 
 const config = {
   apiKey: "AIzaSyBFIDbnWq83H2PN8QIQk6IooZ58sVkSU2k",
@@ -115,8 +117,12 @@ export const messageListener = messages => {
   return addListener;
 };
 
-
+export const functions = firebase.functions;
 export const auth = firebase.auth();
+export const authSession = firebase
+  .auth()
+  .setPersistence(firebase.auth.Auth.Persistence.SESSION);
+
 export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();

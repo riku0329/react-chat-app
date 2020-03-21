@@ -19,7 +19,7 @@ const MenuContainer = styled.div`
   opacity: 1;
   grid-row: span 2;
   display: grid;
-  grid-template-rows: 100px 1fr 1fr 100px;
+  grid-template-rows: 50px 100px 1fr 50px;
   margin: 1rem;
 `;
 

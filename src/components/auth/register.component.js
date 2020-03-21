@@ -4,19 +4,20 @@ import md5 from "md5";
 import {
   signInWithGoogle,
   auth,
-  createUserProfile
+  createUserProfile,
+  authSession
 } from "../../firebase/firebase.utils";
 
 import { FormContainer, FormInput } from "../form-input/form-input.component";
 import { checkLength, checkEmail } from "../../utils/check-valid";
 import CustomButton from "../custom-button/custom-button.component";
-import { DARK_GREEN } from "../../utils/constans";
+import { DARK_GREEN, BLACK } from "../../utils/constans";
 
 export const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: ${BLACK};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   height: 30rem;
   width: 20rem;
@@ -64,10 +65,9 @@ const RegisterStyled = () => {
     checkEmail(email);
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const { user } = await authSession.then(() => {
+        return auth.createUserWithEmailAndPassword(email, password);
+      } )
 
       await createUserProfile(user, { displayName, photoURL });
 
@@ -115,6 +115,7 @@ const RegisterStyled = () => {
             placeholder="Password"
             label="Password"
             onChange={handleChange}
+            autoComplete="off"
           />
           <FormInput
             type="password"
@@ -123,6 +124,7 @@ const RegisterStyled = () => {
             placeholder="Confirm Password"
             label="Confirm Password"
             onChange={handleChange}
+            autoComplete="off"
           />
           <CustomButton isRegister onClick={handleSubmit}>
             Register
