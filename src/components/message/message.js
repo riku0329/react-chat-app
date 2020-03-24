@@ -13,13 +13,23 @@ import Messages from "./meeages.component";
 const MessageContainer = styled.div`
   background-color: ${DARK_BLACK};
   padding: 1rem;
+  grid-row: 2 / 4;
+  grid-column: 2 / 3;
+  border-radius: 0 0 10px 0;
+  width: 100%;
+  height: 100%;
+  @media screen and (max-width: 800px) {
+    grid-row: 2 / 4;
+    grid-column: 1 / 3 ;
+  }
 `;
 
 const MessageBox = styled.div`
   background-color: ${BLACK};
-  height: 32rem;
+  height: 90%;
   border-radius: 10px 10px 0 0;
   overflow-y: scroll;
+  width: 100%;
 `;
 
 const Message = ({
@@ -37,6 +47,7 @@ const Message = ({
         .collection("message");
       const loadMessages = messageRef
         .orderBy("timestamp", "asc")
+        .limit(15)
         .onSnapshot(async snapShot => {
           const messageMap = messageListener(snapShot);
           getMessages(messageMap);

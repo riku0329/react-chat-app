@@ -3,13 +3,14 @@ import styled from "styled-components";
 
 import RegisterStyled from "../components/auth/register.component";
 import { Link } from "react-router-dom";
-import { BLACK } from "../utils/constans";
+import { BLACK, LIGHT_ASH, ASH, OFF_WHITE, PRIME_GREEN } from "../utils/constans";
 
 const RegisterPageStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Message = styled.div`
@@ -24,16 +25,26 @@ const Message = styled.div`
   letter-spacing: 0.7px;
 `;
 
+const LinkStyles = styled(Link)`
+  color: ${PRIME_GREEN};
+  text-decoration: none;
+  &:hover {
+    color: ${ASH};
+  }
+`;
+
 const Register = () => {
   return (
     <RegisterPageStyled>
       <RegisterStyled />
       <Message>
         <span>
-          Already a user?<Link to="/login">Login</Link>
+          Already a user?
+          <LinkStyles to="/login">
+            <p>Login</p>
+          </LinkStyles>
         </span>
       </Message>
-      <Link to="/">aaa</Link>
     </RegisterPageStyled>
   );
 };

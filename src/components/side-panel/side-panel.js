@@ -1,29 +1,38 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
-import { BLACK } from "../../utils/constans";
+import { createStructuredSelector } from "reselect";
 
 import {
   firestore,
   convertChannelsSnapShotToMap
 } from "../../firebase/firebase.utils";
+import { selectAllChannels } from "../../redux/channel/channel.selectors";
 import { getChannels } from "../../redux/channel/channel.actions";
+import { BLACK, LIGHT_BLACK } from "../../utils/constans";
 
 import Channels from "./channels.component";
-import SideHeader from "./side-header.component";
-import DirectMessage from "./directmessage.component";
 
 const MenuContainer = styled.div`
+  padding: 1rem;
   background-color: ${BLACK};
   opacity: 1;
   grid-row: span 2;
-  display: grid;
-  grid-template-rows: 50px 100px 1fr 50px;
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
   margin: 1rem;
+  @media screen and (max-width: 800px) {
+    background-color: ${LIGHT_BLACK};
+    grid-row: 4;
+    grid-column: 1 / 4;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
-const SidePanel = ({ getChannels }) => {
+const SidePanel = ({ getChannels, channels }) => {
   useEffect(() => {
     const channelRef = firestore.collection("channel");
     const unsubscribeFromSnapShot = channelRef
@@ -39,9 +48,7 @@ const SidePanel = ({ getChannels }) => {
   }, [getChannels]);
   return (
     <MenuContainer>
-      <SideHeader />
-      <Channels />
-      <DirectMessage />
+      <Channels channels={channels} />
     </MenuContainer>
   );
 };
@@ -50,8 +57,8 @@ const mapDispatchToProps = dispatch => ({
   getChannels: channelsMap => dispatch(getChannels(channelsMap))
 });
 
-const mapStateToProps = state => ({
-  channels: state.channel.channels
+const mapStateToProps = createStructuredSelector({
+  channels: selectAllChannels
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidePanel);

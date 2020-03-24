@@ -4,28 +4,29 @@ import { connect } from "react-redux";
 import { auth } from "../../firebase/firebase.utils";
 import { Link } from "react-router-dom";
 
-import { DARK_BLACK, ASH, GREY, BLACK } from "../../utils/constans";
+import { DARK_BLACK, ASH, GREY, LIGHT_BLACK } from "../../utils/constans";
 
 const OptionDropdownContainer = styled.div`
   position: absolute;
   width: 200px;
-  height: 150px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   text-align: center;
   padding-top: 2px;
   background-color: ${DARK_BLACK};
   top: 6rem;
-  right: 25px;
+  right: 10rem;
   z-index: 5;
   border-radius: 4px;
   @media screen and (max-width: 800px) {
     padding: 0;
     width: 150px;
-    height: 200px;
+    height: 50px;
     display: flex;
     flex-direction: column;
-    right: 0px;
+    right: 20px;
+    top: 3rem;
   }
 `;
 
@@ -40,7 +41,7 @@ const ListItem = styled.li`
   border-bottom: 2px solid ${GREY};
 
   &:hover {
-    background-color: ${BLACK};
+    background-color: ${LIGHT_BLACK};
   }
 `;
 
@@ -51,6 +52,9 @@ export const OptionLink = styled(Link)`
   cursor: pointer;
   color: ${ASH};
   text-decoration: none;
+  @media screen and (max-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 const OptionDropdown = ({ currentUser }) => {

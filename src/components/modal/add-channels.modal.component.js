@@ -13,8 +13,8 @@ import CustomButton from "../custom-button/custom-button.component";
 
 const customStyles = {
   content: {
-    width: "25rem",
-    height: "25rem",
+    width: "50%",
+    height: "40%",
     top: "50%",
     left: "50%",
     right: "auto",

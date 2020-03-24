@@ -2,25 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-
 import { sendMessage } from "../../firebase/firebase.utils";
 
-import { ASH, BLACK, LIGHTER_GREY, DARK_GREY } from "../../utils/constans";
+import { ASH, BLACK, DARK_GREY } from "../../utils/constans";
 
 const MessageFormContainer = styled.div`
   background-color: ${BLACK};
-  height: 5rem;
+  height: 3rem;
   border-radius: 0 0 5px 5px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  @media screen and (max-width: 1000px) {
+  }
 `;
 
 const MessageInput = styled.input`
-  flex: 5;
+  width: 100%;
   margin-left: 1rem;
   height: 2rem;
-  width: 45rem;
   padding-left: 1rem;
   color: ${ASH};
   outline: none;
@@ -29,17 +26,14 @@ const MessageInput = styled.input`
   display: block;
   font-size: 14px;
   background-color: ${DARK_GREY};
+  @media screen and (max-width: 1000px) {
+  }
   &:hover,
   &:active {
-  }
-
-  @media screen and (max-width: 800px) {
-    width: 17rem;
   }
 `;
 
 const MessageButton = styled.button`
-  flex:1;
   margin-bottom: 1rem;
   height: 2rem;
   border-radius: 4px;
@@ -63,7 +57,6 @@ const MessageForm = ({ currentUser, currentChannel }) => {
   const [addMessage, setAddMessage] = useState({
     content: ""
   });
-
 
   const { content } = addMessage;
   const handleChange = event => {

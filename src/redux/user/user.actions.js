@@ -8,3 +8,4 @@ export const setCurrentUser = user => ({
 export const toggelHidden = () => ({
   type: userActionTypes.TOGGLE_USER_OPTION
 });
+

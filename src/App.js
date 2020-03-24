@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import useReactRouter from "use-react-router";
 

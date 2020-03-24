@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import moment from "moment";
 import {
   DARK_GREY,
-  LIGHT_BLACK,
   PRIME_GREEN,
-  OFF_WHITE
+  OFF_WHITE,
 } from "../../utils/constans";
 
 const MessagesContainer = styled.div`
@@ -15,11 +14,12 @@ const MessagesContainer = styled.div`
   grid-template-rows: 1rem 1fr 1rem;
   width: 40%;
   height: 6rem;
-
+  @media screen and (max-width: 1000px) {
+    width: 70%;
+  }
   ${({ active }) =>
     active &&
     `
-      color: ${LIGHT_BLACK};
       margin: 1rem 0 1rem auto;
   `}
 `;
@@ -33,7 +33,6 @@ const PhotoStyles = styled.div`
     `
       grid-column: 4/ 5;
       grid-row: 1;
-      color: ${LIGHT_BLACK};
       background-color: ${PRIME_GREEN};
       margin: 1rem 0 1rem auto;
   `}
@@ -49,7 +48,7 @@ const TimeStampStyles = styled.div`
   grid-column: 2;
   grid-row: 4;
   font-size: 0.8rem;
-  color: ${OFF_WHITE};
+
 
   ${({ active }) =>
     active &&
@@ -59,6 +58,7 @@ const TimeStampStyles = styled.div`
   `}
 `;
 const MessageStyles = styled.p`
+  font-size: .8rem;
   padding: 5px 9px;
 `;
 const TextContainer = styled.div`

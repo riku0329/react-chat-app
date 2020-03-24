@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LIGHT_ASH, OFF_WHITE, LIGHTER_GREY, DARK_GREY, GREY } from "../../utils/constans";
+import { OFF_WHITE, DARK_GREY, GREY } from "../../utils/constans";
 
 export const FormContainer = styled.div`
   display: flex;

@@ -6,6 +6,9 @@ import { ASH, OFF_WHITE } from "../../utils/constans";
 
 const OptionIconContainer = styled.div`
   padding: 0 10px 0 20px;
+  @media screen and (max-width: 1000px) {
+    padding: 0;
+  }
 `;
 
 const IconStyle = styled.span`

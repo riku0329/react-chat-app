@@ -7,10 +7,13 @@ import Usage from "../usage/star.component";
 
 const ChannelNameContainer = styled.div`
   flex: 1;
-  font-size: 1.5rem;
+  font-size: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media screen and (max-width: 1000px){
+    font-size: 0.4rem;
+  }
 `;
 
 const JoinUsersStyles = styled.p`
@@ -18,6 +21,15 @@ const JoinUsersStyles = styled.p`
   text-align: center;
   margin-left: 2rem;
   color: ${PRIME_GREEN};
+  @media screen and (max-width: 1000px) {
+    margin-left: 5px;
+  }
+`;
+
+const NameStyles = styled.h2`
+  padding-right: 1rem;
+  @media screen and (max-width: 1000px) {
+  }
 `;
 
 const ChannelName = ({ currentChannel, messages, getJoinUsers, joinUsers }) => {
@@ -38,7 +50,7 @@ const ChannelName = ({ currentChannel, messages, getJoinUsers, joinUsers }) => {
 
   return (
     <ChannelNameContainer>
-      <div style={{paddingRight: "1rem"}}># {channelName}</div>
+      <NameStyles># {channelName}</NameStyles>
       <Usage />
       <JoinUsersStyles>{joinUsers}users</JoinUsersStyles>
     </ChannelNameContainer>

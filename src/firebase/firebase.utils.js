@@ -1,11 +1,12 @@
 import firebase from "firebase/app";
-import "firebase/firestore";
+import "@firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
 import "firebase/database";
 import "firebase/functions";
+import ReduxSagaFirebase from "redux-saga-firebase";
 
-const config = {
+const myFirebaseApp = firebase.initializeApp ({
   apiKey: "AIzaSyBFIDbnWq83H2PN8QIQk6IooZ58sVkSU2k",
   authDomain: "react-chat-a5696.firebaseapp.com",
   databaseURL: "https://react-chat-a5696.firebaseio.com",
@@ -14,9 +15,9 @@ const config = {
   messagingSenderId: "307986255837",
   appId: "1:307986255837:web:05cddac90e86228c43f034",
   measurementId: "G-47MBB32JWG"
-};
+});
 
-firebase.initializeApp(config);
+export const rsf = new ReduxSagaFirebase(myFirebaseApp);
 
 export const createUserProfile = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -71,7 +72,7 @@ export const convertChannelsSnapShotToMap = channels => {
       id: doc.id,
       channelName,
       createdAt,
-      createdBy
+      createdBy,
     };
   });
   return transformedChannel;

@@ -1,28 +1,18 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import styled from "styled-components";
 import mojs from "mo-js";
 import { connect } from "react-redux";
-import { getJoinUsers } from "../../redux/message/message.actions";
 
 import "./star.styles.css";
-import { LIGHT_BLACK } from "../../utils/constans";
 
 const StarAnimationContainer = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
-  /* -webkit-box-pack: center;
-  justify-content: center; */
   -webkit-box-align: center;
 `;
 
-const initialState = {
-  count: 0,
-  countTotal: 0,
-  isClicked: false
-};
-
-const useHeartAnimation = () => {
+const useStarAnimation = () => {
   const [animationTimeline, setAnimationTimeline] = useState(
     () => new mojs.Timeline()
   );
@@ -103,28 +93,40 @@ const useHeartAnimation = () => {
   return animationTimeline;
 };
 
-const HeartAnimation = () => {
-  const MAXIMUM_USER_HEART = 300;
-  const [heartState, setHeartState] = useState(initialState);
-  const { count, countTotal, isClicked } = heartState;
+const StarAnimation = ({ currentChannel }) => {
+  const MAXIMUM_USER_STAR = 100;
+  const [starState, setStarState] = useState({
+    count: 0,
+    countTotal: 0,
+    isClicked: false
+  });
+  const { count, countTotal, isClicked } = starState;
+  const animationTimeline = useStarAnimation();
 
-  const animationTimeline = useHeartAnimation();
+  useEffect(() => {
 
-  const handleHeartClick = () => {
+  }, [isClicked])
+
+  const handleStarClick = () => {
     animationTimeline.replay();
-
-    setHeartState(prevState => ({
+    setStarState(prevState => ({
       isClicked: true,
-      count: Math.min(count + 1, MAXIMUM_USER_HEART),
+      count: Math.min(count + 1, MAXIMUM_USER_STAR),
       countTotal:
-        count < MAXIMUM_USER_HEART
+        countTotal < MAXIMUM_USER_STAR
           ? prevState.countTotal + 1
           : prevState.countTotal
     }));
   };
+
+
   return (
     <StarAnimationContainer>
-      <button id="star" className="star" onClick={handleHeartClick}>
+      <button
+        id="star"
+        className="star"
+        onClick={() => handleStarClick()}
+      >
         <StarIcon isClicked={isClicked} />
         <CountTotal countTotal={countTotal} />
         <StarCount count={count} />
@@ -158,13 +160,6 @@ const StarIcon = ({ isClicked }) => {
         width="24px"
         height="24px"
         viewBox="0 0 24 24"
-        aria-labelledby="starIconTitle"
-        stroke="#2329D6"
-        stroke-width="1"
-        stroke-linecap="square"
-        stroke-linejoin="miter"
-        fill="none"
-        color="#2329D6"
         className={`icon ${isClicked && "checked"}`}
       >
         {" "}
@@ -175,8 +170,12 @@ const StarIcon = ({ isClicked }) => {
   );
 };
 
-const Usage = () => {
-  return <HeartAnimation />;
+const Usage = ({ currentChannel }) => {
+  return <StarAnimation currentChannel={currentChannel} />;
 };
 
-export default Usage;
+const mapStateToProps = state => ({
+  currentChannel: state.channel.currentChannel
+});
+
+export default connect(mapStateToProps)(Usage);

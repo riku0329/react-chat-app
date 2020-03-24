@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -15,22 +15,28 @@ const DiplayChannelContainer = styled.div`
     background-color: ${DARK_GREY};
     color: ${OFF_WHITE};
   }
+  @media screen and (max-width: 800px) {
+    margin-top: 0;
+    margin-right: 10px;
+    border-bottom: none;
+  }
 `;
 
-const ChannelItem = styled.div`
-`;
+const ChannelItem = styled.div``;
 
-const DisplayChannel = ({ channelName, channelData, setCurrentChannel }) => {
-
+const DisplayChannel = ({
+  channelName,
+  channelData,
+  setCurrentChannel,
+  joinUsers
+}) => {
   const changeChannel = channelData => {
     setCurrentChannel(channelData);
   };
 
   return (
     <DiplayChannelContainer>
-      <ChannelItem
-        onClick={() => changeChannel(channelData)}
-      >
+      <ChannelItem onClick={() => changeChannel(channelData)}>
         # {channelName}
       </ChannelItem>
     </DiplayChannelContainer>

@@ -14,7 +14,9 @@ const ChannelsContainer = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding: 1rem;
+  @media screen and (max-width: 800px) {
+    flex-direction: row;
+  }
 `;
 
 const ChalleIconStyle = styled.span`
@@ -78,7 +80,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  channels: state.channel.channels,
   firstLoad: state.channel.firstLoad
 });
 

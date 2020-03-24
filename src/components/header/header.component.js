@@ -15,8 +15,14 @@ import {
 
 const HeaderContainer = styled.div`
   grid-column: 2 / 3;
+  grid-row: 1;
   background-color: ${LIGHT_BLACK};
   box-shadow: 1px 3px rgba(0, 0, 0, 0.4);
+
+  @media screen and (max-width: 800px) {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
 `;
 
 const UserOption = styled.div`
@@ -35,14 +41,15 @@ const SearchForm = styled.input`
   display: block;
   font-size: 14px;
   background-color: ${BLACK};
-  width: 17rem;
+  width: 100%;
   height: 2rem;
   &:hover,
   &:active {
   }
 
   @media screen and (max-width: 800px) {
-    width: 6rem;
+    margin-right: 0;
+    padding-left: 10px;
   }
 `;
 
@@ -74,7 +81,6 @@ const Header = ({
 
   useEffect(() => {
     handleSerachMessages(messages, searchInput);
-    console.log("render");
   }, [searchInput]);
 
   const handleSerachMessages = (messages, searchTherm) => {
